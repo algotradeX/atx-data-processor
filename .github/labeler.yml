@@ -1,0 +1,11 @@
+# Add 'test' label
+test:
+  - test/**/*
+
+# Add github actions related updates to .github
+git:
+  - .github/**/*
+
+# requirements.txt update
+requirements-update:
+  - requirements.txt
