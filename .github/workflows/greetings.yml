@@ -9,5 +9,5 @@ jobs:
     - uses: actions/first-interaction@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: "You just reported first issue in this repo. :thought_balloon: :sparkles: "
+        issue-message: "You just reported your first issue in this repo. :thought_balloon: :sparkles: "
         pr-message: "Congrats on your first contribution! :1st_place_medal: "
