@@ -3,9 +3,12 @@ test:
   - test/**/*
 
 # Add github actions related updates to .github
-git:
+github-action:
   - .github/**/*
 
 # requirements.txt update
 requirements-update:
   - requirements.txt
+
+":label: documentation :scroll:":
+  - README.md
