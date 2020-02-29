@@ -1,6 +1,9 @@
 # atx-data-processor usage
 Process data from atx-database
 
+
+
+
 ## Setup Instructions
 
 ### 1. Install Pip
@@ -39,6 +42,8 @@ $ conda deactivate
 `>> pip freeze > requirements.txt`
 
 
+
+
 ## Run application
 `>> python atx_data_processor_master.py`
 
@@ -50,5 +55,7 @@ $ conda deactivate
        Use a production WSGI server instead.
      * Debug mode: off
      * Running on http://0.0.0.0:8420/ (Press CTRL+C to quit)
+
+
 
 
