@@ -1,2 +1,7 @@
 # mac
 .idea/
+
+# test caches
+.pytest_cache/
+test/__pycache__/
+
