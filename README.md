@@ -18,8 +18,8 @@ Process data from atx-database
 
 `>> export PATH="/usr/local/anaconda3/bin:$PATH"`
 
-##### Clone ml-catalogue-service
-`>> git clone http://gitlab.medlife.com/Services/ml-catalogue-service.git`
+##### Clone atx-data-processor
+`>> git clone https://github.com/algotradeX/atx-data-processor.git`
 
 ##### Run virtual env
 `>> conda create -n atx-dp-env python=3.7`
