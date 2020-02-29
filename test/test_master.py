@@ -6,7 +6,6 @@ import pytest
 # import atx_data_processor_master
 
 
-@pytest.fixture
-def client():
+def test_client():
     return True
 
