@@ -8,4 +8,3 @@ import pytest
 
 def test_client():
     return True
-

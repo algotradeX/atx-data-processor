@@ -19,4 +19,3 @@ class Server(metaclass=Singleton):
 
     def get_docs(self):
         return self.docs
-

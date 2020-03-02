@@ -8,13 +8,11 @@ Client = Namespace("health")
 api = Client.api
 
 
-@api.route('/ping', methods=['GET'])
+@api.route("/ping", methods=["GET"])
 def get_health():
     if True:
         health = "OK"
-    resp = {
-        "health": health
-    }
+    resp = {"health": health}
     return {"statusCode": 200, "data": resp}
 
 
@@ -29,4 +27,3 @@ def site_map():
             links.append((url, rule.endpoint))
     # links is now a list of url, endpoint tuples
     return {"statusCode": 200, "sitemap": links}
-
