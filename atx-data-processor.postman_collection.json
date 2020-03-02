@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "c358c31d-2ddb-47b5-af2d-2e7163840928",
+		"name": "atx-data-processor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "health/ping",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							"pm.collectionVariables.set(\"atx-data-processor-url\", \"http://localhost:8420\");",
+							"pm.collectionVariables.set(\"atx-data-processor-api\", \"api/v1/atx-data-processor\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/health/ping",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"health",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health/sitemap",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/health/sitemap",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"health",
+						"sitemap"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "c7e4cfc9-f938-485e-bef4-e8f7bc76f8e3",
+			"key": "atx-data-processor-api",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "68672d83-073e-4ded-af37-ad59afddfc4f",
+			"key": "atx-data-processor-url",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,4 +1,4 @@
-# atx-data-processor usage
+# atx-data-processor
 Process data from atx-database
 
 
@@ -56,6 +56,33 @@ $ conda deactivate
      * Debug mode: off
      * Running on http://0.0.0.0:8420/ (Press CTRL+C to quit)
 
+
+
+## Linting and Formatter
+
+#### Formatting using black
+
+`black src/ atx_data_processor_master.py`
+
+#### Linting using flake8
+
+`flake8 src/ atx_data_processor_master.py`
+
+#### Install the hooks
+
+Install the git hooks defined in the pre-commit file by running the following in the terminal:
+
+`pre-commit install`
+
+#### Run the hooks
+
+If this is an already existing project you may want to go ahead and format all the files. You can do this by running the following in the terminal:
+
+`pre-commit run --all-files`
+
+This will run all the git hooks you've installed against all files. At this point you can review the messages and make corrections as necessary. You can re-run the command until there are no longer any warnings.
+
+Finally, commit all the new changes! From now on when you stage files to be committed only those will be formatted and linted by black and flake8. 
 
 
 
