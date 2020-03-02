@@ -1,15 +1,18 @@
 from flask import url_for
 
 from src.app import app
+from src.common import Logger
 from src.core.namespace import Namespace
 from src.util import has_no_empty_params
 
 Client = Namespace("health")
 api = Client.api
+log = Logger()
 
 
 @api.route("/ping", methods=["GET"])
 def get_health():
+    log.info("Request received : ping")
     if True:
         health = "OK"
     resp = {"health": health}
@@ -18,6 +21,7 @@ def get_health():
 
 @api.route("/sitemap")
 def site_map():
+    log.info("Request received : sitemap")
     links = []
     for rule in app.url_map.iter_rules():
         # Filter out rules we can't navigate to in a browser

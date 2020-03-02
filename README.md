@@ -9,20 +9,20 @@ Process data from atx-database
 ### 1. Install Pip
 ### 2. Install Anaconda
 ##### Linux
-`>> wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
+`wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
 
-`>> bash ./Miniconda3-latest-Linux-x86_64.sh`
+`bash ./Miniconda3-latest-Linux-x86_64.sh`
 
 ##### MacOS
-`>> brew cask install anaconda`
+`brew cask install anaconda`
 
-`>> export PATH="/usr/local/anaconda3/bin:$PATH"`
+`export PATH="/usr/local/anaconda3/bin:$PATH"`
 
 ##### Clone atx-data-processor
-`>> git clone https://github.com/algotradeX/atx-data-processor.git`
+`git clone https://github.com/algotradeX/atx-data-processor.git`
 
 ##### Run virtual env
-`>> conda create -n atx-dp-env python=3.7`
+`conda create -n atx-dp-env python=3.7`
 
 ```
 To activate this environment, use
@@ -31,21 +31,21 @@ To deactivate an active environment, use
 $ conda deactivate
 ```
 
-`>> conda activate atx-dp-env`
+`conda activate atx-dp-env`
 
 ##### Install Packages
 
-`>> pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 ##### Update package and versions in requirements.txt
 
-`>> pip freeze > requirements.txt`
+`pip freeze > requirements.txt`
 
 
 
 
 ## Run application
-`>> python atx_data_processor_master.py`
+`python atx_data_processor_master.py`
 
     started atx-data-processor mongo connector {}
     started atx-data-processor server {}
