@@ -1,0 +1,27 @@
+{
+    "default": {
+        "DEBUG": true,
+        "API": {
+            "SERVER": {
+                "url": "0.0.0.0",
+                "port": 8420
+            },
+            "VERSION": "/api/v1/"
+        },
+        "SERVICE": {
+            "NAME": "atx-data-processor"
+        }
+    },
+    "development": {
+        "DEBUG": true
+    },
+    "qa": {
+        "DEBUG": false
+    },
+    "preprod": {
+        "DEBUG": false
+    },
+    "production": {
+        "DEBUG": false
+    }
+}

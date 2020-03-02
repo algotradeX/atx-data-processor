@@ -1,12 +1,5 @@
-from flask import Flask
+from src.app import app
+from dynaconf import settings
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def home():
-    return "Hello, World!"
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host=settings.API.SERVER.url, port=settings.API.SERVER.port, debug=settings.DEBUG)
