@@ -1,7 +1,9 @@
 # atx-data-processor
 Process data from atx-database
-
-
+[codeclimate-maintainability-percentage](https://img.shields.io/codeclimate/maintainability-percentage/algotradeX/atx-data-processor?style=plastic)
+[codeclimate-issue-count](https://img.shields.io/codeclimate/issues/algotradeX/atx-data-processor?style=plastic)
+[codeclimate-tech-debt](https://img.shields.io/codeclimate/tech-debt/algotradeX/atx-data-processor?style=plastic)
+[codeclimate-coverage](https://img.shields.io/codeclimate/coverage/algotradeX/atx-data-processor?style=plastic)
 
 
 ## Setup Instructions
