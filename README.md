@@ -1,6 +1,11 @@
 # atx-data-processor
 Process data from atx-database
 
+![Python package](https://github.com/algotradeX/atx-data-processor/workflows/Python%20package/badge.svg?label=Build%20Status)
+![codeclimate-maintainability](https://img.shields.io/codeclimate/maintainability/algotradeX/atx-data-processor?label=Code%20Climate%20Maintainability)
+
+
+### Code Climate Status
 ![codeclimate-maintainability-percentage](https://img.shields.io/codeclimate/maintainability-percentage/algotradeX/atx-data-processor?style=plastic)
 ![codeclimate-issue-count](https://img.shields.io/codeclimate/issues/algotradeX/atx-data-processor?style=plastic)
 ![codeclimate-tech-debt](https://img.shields.io/codeclimate/tech-debt/algotradeX/atx-data-processor?style=plastic)
