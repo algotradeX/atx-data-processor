@@ -18,8 +18,6 @@
             "basepath": "logs"
         },
         "POSTGRES": {
-            "username": "",
-            "password": "",
             "uri": "",
             "db": ""
         }
@@ -32,10 +30,8 @@
             "line-profiler-type": "deterministic"
         },
         "POSTGRES": {
-            "username": "",
-            "password": "",
             "uri": "postgresql://localhost:5432",
-            "db": "postgres"
+            "db": "atx-data"
         }
     },
     "qa": {

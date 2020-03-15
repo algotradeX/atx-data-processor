@@ -1,7 +1,9 @@
 import sqlalchemy as alchemist
 from dynaconf import settings
 
-from src.common import Singleton
+from src.common import Singleton, Logger
+
+log = Logger()
 
 
 class Postgres(metaclass=Singleton):
@@ -14,7 +16,7 @@ class Postgres(metaclass=Singleton):
             pg_settings["uri"] + "/" + pg_settings["db"], pool_pre_ping=True
         )
         self.connection = self.engine.connect()
-        print("Postgres Instance created")
+        log.info(f"Postgres Instance created")
 
     def get_engine(self):
         return self.engine
