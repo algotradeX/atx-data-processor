@@ -4,6 +4,7 @@ from flask_apispec import FlaskApiSpec
 from flask_cors import CORS
 
 from src.common import Singleton, line_profiler
+from src.db import Postgres
 
 
 class Server(metaclass=Singleton):
@@ -15,6 +16,10 @@ class Server(metaclass=Singleton):
         self.app = app
         self.docs = FlaskApiSpec(app)
         self.lineProfiler = line_profiler()
+        print(
+            "starting " + settings.APP_NAME + " postgres connector ", settings.POSTGRES
+        )
+        self.postgres = Postgres(settings.POSTGRES)
         print("started " + settings.APP_NAME + " server on", settings.API.SERVER)
 
     def get_app(self):
@@ -25,3 +30,6 @@ class Server(metaclass=Singleton):
 
     def get_line_profiler(self):
         return self.lineProfiler
+
+    def get_pg_engine(self):
+        return self.postgres.get_engine()

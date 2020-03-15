@@ -3,6 +3,7 @@ from flask import url_for
 from src.app import app
 from src.common import Logger
 from src.core.namespace import Namespace
+from src.routes.health.service import ping_postgres
 from src.util import has_no_empty_params
 
 Client = Namespace("health")
@@ -13,9 +14,12 @@ log = Logger()
 @api.route("/ping", methods=["GET"])
 def get_health():
     log.info("Request received : ping")
-    if True:
+    postgres_stat = ping_postgres()
+    if postgres_stat:
         health = "OK"
-    resp = {"health": health}
+    else:
+        health = "Unhealthy"
+    resp = {"health": health, "postgres": postgres_stat}
     return {"statusCode": 200, "data": resp}
 
 

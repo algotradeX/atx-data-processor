@@ -16,6 +16,12 @@
         "APP_NAME": "atx-data-processor",
         "LOGGING": {
             "basepath": "logs"
+        },
+        "POSTGRES": {
+            "username": "",
+            "password": "",
+            "uri": "",
+            "db": ""
         }
     },
     "development": {
@@ -24,6 +30,12 @@
             "flask-profiler": true,
             "line-profiler": true,
             "line-profiler-type": "deterministic"
+        },
+        "POSTGRES": {
+            "username": "",
+            "password": "",
+            "uri": "postgresql://localhost:5432",
+            "db": "postgres"
         }
     },
     "qa": {
