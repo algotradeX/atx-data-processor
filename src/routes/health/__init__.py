@@ -1,23 +1,31 @@
 from flask import url_for
 
 from src.app import app
+from src.common import Logger
 from src.core.namespace import Namespace
+from src.routes.health.service import ping_postgres
 from src.util import has_no_empty_params
 
 Client = Namespace("health")
 api = Client.api
+log = Logger()
 
 
 @api.route("/ping", methods=["GET"])
 def get_health():
-    if True:
+    log.info("Request received : ping")
+    postgres_stat = ping_postgres()
+    if postgres_stat:
         health = "OK"
-    resp = {"health": health}
+    else:
+        health = "Unhealthy"
+    resp = {"health": health, "postgres": postgres_stat}
     return {"statusCode": 200, "data": resp}
 
 
 @api.route("/sitemap")
 def site_map():
+    log.info("Request received : sitemap")
     links = []
     for rule in app.url_map.iter_rules():
         # Filter out rules we can't navigate to in a browser

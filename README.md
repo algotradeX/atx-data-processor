@@ -1,7 +1,15 @@
 # atx-data-processor
 Process data from atx-database
 
+![Python package](https://github.com/algotradeX/atx-data-processor/workflows/Python%20package/badge.svg?label=Build%20Status)
+![codeclimate-maintainability](https://img.shields.io/codeclimate/maintainability/algotradeX/atx-data-processor?label=Code%20Climate%20Maintainability)
 
+
+### Code Climate Status
+![codeclimate-maintainability-percentage](https://img.shields.io/codeclimate/maintainability-percentage/algotradeX/atx-data-processor?style=plastic)
+![codeclimate-issue-count](https://img.shields.io/codeclimate/issues/algotradeX/atx-data-processor?style=plastic)
+![codeclimate-tech-debt](https://img.shields.io/codeclimate/tech-debt/algotradeX/atx-data-processor?style=plastic)
+![codeclimate-coverage](https://img.shields.io/codeclimate/coverage/algotradeX/atx-data-processor?style=plastic)
 
 
 ## Setup Instructions
@@ -9,20 +17,20 @@ Process data from atx-database
 ### 1. Install Pip
 ### 2. Install Anaconda
 ##### Linux
-`>> wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
+`wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
 
-`>> bash ./Miniconda3-latest-Linux-x86_64.sh`
+`bash ./Miniconda3-latest-Linux-x86_64.sh`
 
 ##### MacOS
-`>> brew cask install anaconda`
+`brew cask install anaconda`
 
-`>> export PATH="/usr/local/anaconda3/bin:$PATH"`
+`export PATH="/usr/local/anaconda3/bin:$PATH"`
 
 ##### Clone atx-data-processor
-`>> git clone https://github.com/algotradeX/atx-data-processor.git`
+`git clone https://github.com/algotradeX/atx-data-processor.git`
 
 ##### Run virtual env
-`>> conda create -n atx-dp-env python=3.7`
+`conda create -n atx-dp-env python=3.7`
 
 ```
 To activate this environment, use
@@ -31,21 +39,21 @@ To deactivate an active environment, use
 $ conda deactivate
 ```
 
-`>> conda activate atx-dp-env`
+`conda activate atx-dp-env`
 
 ##### Install Packages
 
-`>> pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 ##### Update package and versions in requirements.txt
 
-`>> pip freeze > requirements.txt`
+`pip freeze > requirements.txt`
 
 
 
 
 ## Run application
-`>> python atx_data_processor_master.py`
+`python atx_data_processor_master.py`
 
     started atx-data-processor mongo connector {}
     started atx-data-processor server {}

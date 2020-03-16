@@ -1,6 +1,11 @@
 {
     "default": {
         "DEBUG": true,
+        "PROFILER": {
+            "flask-profiler": true,
+            "line-profiler": true,
+            "line-profiler-type": "deterministic"
+        },
         "API": {
             "SERVER": {
                 "url": "0.0.0.0",
@@ -8,20 +13,49 @@
             },
             "VERSION": "/api/v1/"
         },
-        "SERVICE": {
-            "NAME": "atx-data-processor"
+        "APP_NAME": "atx-data-processor",
+        "LOGGING": {
+            "basepath": "logs"
+        },
+        "POSTGRES": {
+            "uri": "",
+            "db": ""
         }
     },
     "development": {
-        "DEBUG": true
+        "DEBUG": true,
+        "PROFILER": {
+            "flask-profiler": true,
+            "line-profiler": true,
+            "line-profiler-type": "deterministic"
+        },
+        "POSTGRES": {
+            "uri": "postgresql://localhost:5432",
+            "db": "atx-data"
+        }
     },
     "qa": {
-        "DEBUG": false
+        "DEBUG": false,
+        "PROFILER": {
+            "flask-profiler": true,
+            "line-profiler": false,
+            "line-profiler-type": ""
+        }
     },
     "preprod": {
-        "DEBUG": false
+        "DEBUG": false,
+        "PROFILER": {
+            "flask-profiler": false,
+            "line-profiler": false,
+            "line-profiler-type": ""
+        }
     },
     "production": {
-        "DEBUG": false
+        "DEBUG": false,
+        "PROFILER": {
+            "flask-profiler": false,
+            "line-profiler": false,
+            "line-profiler-type": ""
+        }
     }
 }

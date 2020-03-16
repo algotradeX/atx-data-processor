@@ -5,3 +5,6 @@
 .pytest_cache/
 **/__pycache__/
 
+# logs
+logs/
+logfile
