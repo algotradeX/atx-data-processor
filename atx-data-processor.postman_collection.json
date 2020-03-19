@@ -67,17 +67,57 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "post nsc/data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"symbol\": \"HDFC\",\n\t\"series\": \"EQ\",\n\t\"date\": \"28-Feb-2020\",\n\t\"prev_close\": 2272.2,\n\t\"open\": 2228.55,\n\t\"close\": 2228.55,\n\t\"high\": 2228.55,\n\t\"low\": 2175.75,\n\t\"average\": 2191.99,\n\t\"last\": 2186,\n\t\"deliverable_qty\": 5267783,\n\t\"no_of_trades\": 263271,\n\t\"percent_daily_qty_to_traded_qty\": 68.28,\n\t\"total_traded_qty\": 7715143,\n\t\"turnover\": 16911538106.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nsc/data",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"nsc",
+						"data"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "c7e4cfc9-f938-485e-bef4-e8f7bc76f8e3",
+			"id": "c780d3b8-b5ef-4523-87f9-489b972ba1a3",
 			"key": "atx-data-processor-api",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "68672d83-073e-4ded-af37-ad59afddfc4f",
+			"id": "57dbfb86-584d-4003-85cb-48ac223c1977",
 			"key": "atx-data-processor-url",
 			"value": "",
 			"type": "string"
