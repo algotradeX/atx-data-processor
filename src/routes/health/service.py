@@ -7,7 +7,8 @@ log = Logger()
 
 
 def ping_postgres():
-    engine = server.get_pg_engine()
+    postgres = server.get_postgres()
+    engine = postgres.get_engine()
     try:
         # run a SELECT 1.   use a core select() so that
         # the SELECT of a scalar value without a table is
