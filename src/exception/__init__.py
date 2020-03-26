@@ -1,47 +1,37 @@
 """Application error handlers."""
 import json
 import traceback
-from functools import reduce
 
 from flask import Blueprint, jsonify
 from marshmallow import ValidationError
-from psycopg2 import (
-    InterfaceError,
-    DatabaseError,
-    DataError,
-    OperationalError,
-    IntegrityError,
-    InternalError,
-    ProgrammingError,
-    NotSupportedError,
-)
+from sqlalchemy import exc
 
 errors = Blueprint("errors", __name__)
-db_err_list = [
-    InterfaceError,
-    DatabaseError,
-    DataError,
-    OperationalError,
-    IntegrityError,
-    InternalError,
-    ProgrammingError,
-    NotSupportedError,
-]
 
 
-@errors.app_errorhandler(Exception)
-def handle_error(error):
-    if reduce(lambda a, b: a and isinstance(error, b), db_err_list):
+@errors.app_errorhandler(exc.IntegrityError)
+@errors.app_errorhandler(exc.OperationalError)
+def handle_db_exception(error):
+    try:
         response = {
             "success": False,
             "error": {
                 "type": error.__class__.__name__,
-                "message": str(error),
-                "data": error.messages,
+                "message": f"psycopg2 error code: {error.orig.pgcode}",
+                "data": str(error.orig.pgerror),
             },
         }
-        status_code = 500
-    elif isinstance(error, ValidationError):
+        status_code = 400
+        return jsonify(response), status_code
+    except AttributeError:
+        handle_error(error)
+    except Exception:
+        handle_error(error)
+
+
+@errors.app_errorhandler(Exception)
+def handle_error(error):
+    if isinstance(error, ValidationError):
         response = {
             "success": False,
             "error": {
