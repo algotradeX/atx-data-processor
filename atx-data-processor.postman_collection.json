@@ -69,7 +69,7 @@
 			"response": []
 		},
 		{
-			"name": "post nsc/data",
+			"name": "post nse/data",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -95,13 +95,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nsc/data",
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nse/data",
 					"host": [
 						"{{atx-data-processor-url}}"
 					],
 					"path": [
 						"{{atx-data-processor-api}}",
-						"nsc",
+						"nse",
 						"data"
 					]
 				}
@@ -111,13 +111,13 @@
 	],
 	"variable": [
 		{
-			"id": "c780d3b8-b5ef-4523-87f9-489b972ba1a3",
+			"id": "faa1fdd1-7476-4010-adc3-bc797830443d",
 			"key": "atx-data-processor-api",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "57dbfb86-584d-4003-85cb-48ac223c1977",
+			"id": "8a20047d-dcd0-44d6-b7fe-48b9f6c82461",
 			"key": "atx-data-processor-url",
 			"value": "",
 			"type": "string"

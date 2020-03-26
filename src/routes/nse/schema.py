@@ -8,7 +8,7 @@ Model for Security-wise Price volume & Deliverable position data
 """
 
 
-class NscPriceVolumeDeliverableData(Schema):
+class NsePriceVolumeDeliverableData(Schema):
     symbol = fields.Str(required=True)
     series = fields.Str(required=True)
     date = fields.Str(required=True)

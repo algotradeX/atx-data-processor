@@ -4,10 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class NscDailyDataModel(Base):
-    """Model for NSC Daily Data"""
+class NseDailyDataModel(Base):
+    """Model for NSE Daily Data"""
 
-    __tablename__ = "nsc_data_daily"
+    __tablename__ = "nse_data_daily"
 
     timestamp = Column(TIMESTAMP, primary_key=True)
     open = Column(Float)
@@ -18,4 +18,4 @@ class NscDailyDataModel(Base):
     symbol = Column(VARCHAR(20))
 
     def __repr__(self):
-        return "NscModel"
+        return "NseModel"

@@ -5,7 +5,7 @@ CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
 
 -- We start by creating a regular SQL table
 
-CREATE TABLE nsc_data_daily (
+CREATE TABLE nse_data_daily (
   timestamp TIMESTAMP PRIMARY KEY NOT NULL,
   open DOUBLE PRECISION  NOT NULL,
   close    DOUBLE PRECISION  NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE nsc_data_daily (
 -- This creates a hypertable that is partitioned by time
 --   using the values in the `time` column.
 
-SELECT create_hypertable('nsc_data_daily', 'timestamp');
+SELECT create_hypertable('nse_data_daily', 'timestamp');
 
-DROP TABLE "nsc_data_daily";
+DROP TABLE "nse_data_daily";
 
