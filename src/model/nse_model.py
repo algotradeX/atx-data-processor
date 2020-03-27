@@ -16,6 +16,22 @@ class NseDailyDataModel(Base):
     low = Column(Float)
     volume = Column(Float)
     symbol = Column(VARCHAR(20))
+    created_time = Column(TIMESTAMP)
+    updated_time = Column(TIMESTAMP)
 
     def __repr__(self):
-        return "NseModel"
+        return (
+            "<NseDailyDataModel(timestamp='%s', open='%s', close='%s', high='%s', low='%s', volume='%s',"
+            " symbol='%s', createdTime='%s', updatedTime='%s')>"
+            % (
+                self.timestamp,
+                self.open,
+                self.close,
+                self.high,
+                self.low,
+                self.volume,
+                self.symbol,
+                self.created_time,
+                self.updated_time,
+            )
+        )

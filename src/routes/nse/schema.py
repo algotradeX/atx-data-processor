@@ -1,4 +1,6 @@
-from marshmallow import Schema, fields, post_load
+from datetime import datetime
+
+from marshmallow import Schema, fields, post_dump
 
 """
 https://www1.nseindia.com/products/content/equities/equities/eq_security.htm
@@ -26,11 +28,34 @@ class NsePriceVolumeDeliverableData(Schema):
     deliverable_qty = fields.Int(required=True)
     percent_daily_qty_to_traded_qty = fields.Float(required=True)
 
-    @post_load
-    def date_to_string(self, in_data, **kwargs):
-        if "date" in in_data:
-            in_data["timestamp"] = str(in_data["date"])
+    @post_dump
+    def date_to_string(self, output, **kwargs):
+        if "date" in output:
+            output["timestamp"] = datetime.strptime(output["date"], "%d-%b-%Y")
+        return output
 
     class Meta:
         strict = True
         dateformat = "iso"
+
+
+class NseDataDeleteRequest(Schema):
+    date = fields.Str(required=True)
+    timestamp = fields.DateTime()
+
+    @post_dump
+    def date_to_string(self, output, **kwargs):
+        if "date" in output:
+            output["timestamp"] = datetime.strptime(output["date"], "%d-%b-%Y")
+        return output
+
+    class Meta:
+        strict = True
+        dateformat = "iso"
+
+
+class NseDataCsvParseRequest(Schema):
+    localCsvUrl = fields.Str(required=True)
+
+    class Meta:
+        strict = True

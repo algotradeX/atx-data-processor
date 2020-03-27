@@ -6,13 +6,17 @@ from flask import Blueprint, jsonify
 from marshmallow import ValidationError
 from sqlalchemy import exc
 
+from src.common import Logger
+
 errors = Blueprint("errors", __name__)
+log = Logger()
 
 
 @errors.app_errorhandler(exc.IntegrityError)
 @errors.app_errorhandler(exc.OperationalError)
 def handle_db_exception(error):
     try:
+        log.error(f"handle_db_exception : {error}")
         response = {
             "success": False,
             "error": {

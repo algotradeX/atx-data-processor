@@ -12,7 +12,9 @@ CREATE TABLE nse_data_daily (
   high    DOUBLE PRECISION  NOT NULL,
   low    DOUBLE PRECISION  NOT NULL,
   volume    DOUBLE PRECISION  NOT NULL,
-  symbol VARCHAR(20) NOT NULL
+  symbol VARCHAR(20) NOT NULL,
+  created_time TIMESTAMP NOT NULL,
+  updated_time TIMESTAMP NOT NULL
 );
 
 -- This creates a hypertable that is partitioned by time

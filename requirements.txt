@@ -32,7 +32,9 @@ marshmallow==3.5.0
 mccabe==0.6.1
 more-itertools==8.2.0
 nodeenv==1.3.5
+numpy==1.18.2
 packaging==20.1
+pandas==1.0.3
 pathspec==0.7.0
 pluggy==0.13.1
 pprofile==2.0.2
@@ -47,6 +49,7 @@ python-box==3.4.6
 python-dateutil==2.8.1
 python-dotenv==0.12.0
 python-editor==1.0.4
+pytz==2019.3
 PyYAML==5.3
 redis==3.4.1
 regex==2020.2.20

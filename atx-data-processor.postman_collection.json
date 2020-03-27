@@ -107,17 +107,137 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "put nse/data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"symbol\": \"HDFC\",\n\t\"series\": \"EQ\",\n\t\"date\": \"28-Feb-2020\",\n\t\"prev_close\": 2272.2,\n\t\"open\": 2228.55,\n\t\"close\": 2228.55,\n\t\"high\": 2228.55,\n\t\"low\": 2175.75,\n\t\"average\": 2191.99,\n\t\"last\": 2186,\n\t\"deliverable_qty\": 5267783,\n\t\"no_of_trades\": 263271,\n\t\"percent_daily_qty_to_traded_qty\": 68.28,\n\t\"total_traded_qty\": 7715143,\n\t\"turnover\": 16911538106.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nse/data",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"nse",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete nse/data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"28-Feb-2020\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nse/data",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"nse",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post nse/parse_csv",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"localCsvUrl\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nse/parse_csv",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"nse",
+						"parse_csv"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "faa1fdd1-7476-4010-adc3-bc797830443d",
+			"id": "0bdadc2a-d41f-4719-b8a7-a56457a51edf",
 			"key": "atx-data-processor-api",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8a20047d-dcd0-44d6-b7fe-48b9f6c82461",
+			"id": "e65d6dda-bc16-48b7-bb78-a1d0bcd18312",
 			"key": "atx-data-processor-url",
 			"value": "",
 			"type": "string"
