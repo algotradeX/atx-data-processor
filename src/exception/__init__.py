@@ -51,16 +51,19 @@ def handle_error(error):
             message = error.description
         except Exception:
             message = str(error)
+
         data = None
         try:
             if error.data["messages"] is not None:
                 data = json.loads(json.dumps(error.data["messages"]))
         except Exception:
-            pass
+            data = None
+
         try:
             status_code = error.code
         except Exception:
             status_code = 500
+
         response = {
             "success": False,
             "error": {
@@ -70,7 +73,6 @@ def handle_error(error):
             },
         }
 
-    # et, ei, tb = sys.exc_info()
     print(traceback.print_stack())
     print(traceback.print_exc())
 

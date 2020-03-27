@@ -30,9 +30,7 @@ class NsePriceVolumeDeliverableData(Schema):
 
     @post_dump
     def date_to_string(self, output, **kwargs):
-        if "date" in output:
-            output["timestamp"] = datetime.strptime(output["date"], "%d-%b-%Y")
-        return output
+        return date_to_string_nse_schema(output)
 
     class Meta:
         strict = True
@@ -45,9 +43,7 @@ class NseDataDeleteRequest(Schema):
 
     @post_dump
     def date_to_string(self, output, **kwargs):
-        if "date" in output:
-            output["timestamp"] = datetime.strptime(output["date"], "%d-%b-%Y")
-        return output
+        return date_to_string_nse_schema(output)
 
     class Meta:
         strict = True
@@ -59,3 +55,9 @@ class NseDataCsvParseRequest(Schema):
 
     class Meta:
         strict = True
+
+
+def date_to_string_nse_schema(output):
+    if "date" in output:
+        output["timestamp"] = datetime.strptime(output["date"], "%d-%b-%Y")
+    return output

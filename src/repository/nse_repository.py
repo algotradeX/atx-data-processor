@@ -7,6 +7,7 @@ from src.repository.repository_response import (
     delete_response,
     create_response,
     update_response,
+    generate_response,
 )
 
 postgres = server.get_postgres()
@@ -23,7 +24,7 @@ def create_one(data):
     session.add(data)
     session.commit()
     log.info(f"nse_repository : create_one : data = {data}")
-    return create_response(200, True, repr(data))
+    return generate_response(200, "create", True, repr(data))
 
 
 def upsert_one(data):
@@ -48,7 +49,7 @@ def upsert_one(data):
         session.commit()
         updated_nse_data = session.query(NseDailyDataModel).get(data.timestamp)
         log.info(f"nse_repository : update_one : updated_nse_data = {updated_nse_data}")
-        return update_response(200, True, repr(updated_nse_data))
+        return generate_response(200, "update", True, repr(updated_nse_data))
     else:
         return create_one(data)
 
@@ -61,6 +62,6 @@ def delete_one(data_id):
         log.info(
             f"nse_repository : delete_one : deleted_nse_data = {nse_data_to_be_deleted}"
         )
-        return delete_response(200, True, repr(nse_data_to_be_deleted))
+        return generate_response(200, "delete", True, repr(nse_data_to_be_deleted))
     else:
-        return delete_response(200, False, None)
+        return generate_response(200, "delete", False, None)
