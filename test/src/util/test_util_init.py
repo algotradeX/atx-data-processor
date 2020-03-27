@@ -19,12 +19,13 @@ def mock_request(**kwargs):
         def get_json(self):
             return self.json_data
 
-    if kwargs["type"] == "valid":
-        return MockResponse({"x": "value1", "date": "25-Feb-2019"})
-    elif kwargs["type"] == "invalid":
-        return MockResponse({"date": "25-Feb-2019"})
-
-    return MockResponse(None)
+    if "type" in kwargs:
+        if kwargs["type"] == "valid":
+            return MockResponse({"x": "value1", "date": "25-Feb-2019"})
+        elif kwargs["type"] == "invalid":
+            return MockResponse({"date": "25-Feb-2019"})
+    else:
+        return MockResponse(None)
 
 
 class TestUtilInit(TestCase):
@@ -54,15 +55,24 @@ class TestUtilInit(TestCase):
                 strict = True
 
         t_schema = TestSchema()
-        valid_resp = mock_request(type="valid")
-        data = parse_request_using_schema(valid_resp, t_schema)
+        valid_req = mock_request(type="valid")
+        data = parse_request_using_schema(valid_req, t_schema)
         self.assertIsNotNone(data)
         self.assertIsNotNone(data["timestamp"])
         self.assertTrue(isinstance(data["timestamp"], datetime))
 
-        invalid_resp = mock_request(type="invalid")
-        with self.assertRaises(Exception) as context:
-            parse_request_using_schema(invalid_resp, t_schema)
+        invalid_req = mock_request(type="invalid")
+        with self.assertRaises(Exception) as context_1:
+            parse_request_using_schema(invalid_req, t_schema)
+        messages_1 = context_1.exception.messages
+        self.assertTrue(isinstance(context_1.exception, ValidationError))
+        self.assertTrue(len(messages_1) == 1)
+        self.assertEqual(messages_1["x"][0], "Missing data for required field.")
 
-        self.assertTrue(isinstance(context.exception, ValidationError))
-        self.assertTrue(len(context.exception.messages) == 1)
+        none_req = mock_request()
+        with self.assertRaises(Exception) as context_2:
+            parse_request_using_schema(none_req, t_schema)
+        messages_2 = context_2.exception.messages
+        self.assertTrue(isinstance(context_2.exception, ValidationError))
+        self.assertTrue(len(messages_2) == 1)
+        self.assertEqual(messages_2["_schema"][0], "Invalid input type.")

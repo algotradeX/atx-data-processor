@@ -10,3 +10,6 @@
 # logs
 logs/
 logfile
+
+# coverage
+.coverage
