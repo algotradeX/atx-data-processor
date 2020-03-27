@@ -2,7 +2,7 @@ from redis import Redis, ConnectionPool
 from dynaconf import settings
 
 from src.common import Logger
-from src.common.singleton import Singleton
+from src.common import Singleton
 
 log = Logger()
 
