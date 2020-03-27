@@ -32,5 +32,5 @@ class Server(metaclass=Singleton):
     def get_line_profiler(self):
         return self.lineProfiler
 
-    def get_pg_engine(self):
-        return self.postgres.get_engine()
+    def get_postgres(self):
+        return self.postgres

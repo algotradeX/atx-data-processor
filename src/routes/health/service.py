@@ -1,18 +1,20 @@
-from sqlalchemy import select, exc
+from sqlalchemy import exc
 
 from src.app import server
 from src.common import Logger
 
 log = Logger()
+postgres = server.get_postgres()
 
 
 def ping_postgres():
-    engine = server.get_pg_engine()
+    session = postgres.get_session()
     try:
         # run a SELECT 1.   use a core select() so that
         # the SELECT of a scalar value without a table is
         # appropriately formatted for the backend
-        engine.scalar(select([1]))
+        session.execute("SELECT 1")
+        pass
     except exc.DBAPIError as err:
         # catch SQLAlchemy's DBAPIError, which is a wrapper
         # for the DBAPI's exception.  It includes a .connection_invalidated
