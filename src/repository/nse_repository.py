@@ -3,12 +3,7 @@ from datetime import datetime
 from src.app import server
 from src.common import Logger
 from src.model.nse_model import NseDailyDataModel
-from src.repository.repository_response import (
-    delete_response,
-    create_response,
-    update_response,
-    generate_response,
-)
+from src.repository.repository_response import generate_response
 
 postgres = server.get_postgres()
 session = postgres.get_session()

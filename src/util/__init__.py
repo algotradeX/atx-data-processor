@@ -1,10 +1,19 @@
 import inspect
+from datetime import datetime
 
 from marshmallow import ValidationError
 
 from src.common import Logger
 
 log = Logger()
+
+
+def get_initial_create_time_dict():
+    return {"createdTime": datetime.utcnow(), "updatedTime": datetime.utcnow()}
+
+
+def get_update_time_dict():
+    return {"updatedTime": datetime.utcnow()}
 
 
 def has_no_empty_params(rule):

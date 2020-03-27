@@ -38,6 +38,38 @@
 			"response": []
 		},
 		{
+			"name": "health/workQueue",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							"pm.collectionVariables.set(\"atx-data-processor-url\", \"http://localhost:8420\");",
+							"pm.collectionVariables.set(\"atx-data-processor-api\", \"api/v1/atx-data-processor\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/health/ping",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"health",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "health/sitemap",
 			"event": [
 				{
@@ -207,7 +239,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"localCsvUrl\": \"\"\n}",
+					"raw": "{\n\t\"localCsvUrl\": \"~/Downloads/28-02-2020-TO-13-03-2020HDFCALLN.csv\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -231,13 +263,13 @@
 	],
 	"variable": [
 		{
-			"id": "0bdadc2a-d41f-4719-b8a7-a56457a51edf",
+			"id": "97ac4b7f-2676-4667-bb20-f4171a4b0c0e",
 			"key": "atx-data-processor-api",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e65d6dda-bc16-48b7-bb78-a1d0bcd18312",
+			"id": "813b306d-19ae-4aa4-9999-0841902a49b0",
 			"key": "atx-data-processor-url",
 			"value": "",
 			"type": "string"

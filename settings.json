@@ -17,9 +17,17 @@
         "LOGGING": {
             "basepath": "logs"
         },
+        "MONGO": {
+            "uri": "",
+            "db": "",
+            "max_pool_size": 100
+        },
         "POSTGRES": {
             "uri": "",
             "db": ""
+        },
+        "REDIS": {
+            "url": ""
         }
     },
     "development": {
@@ -29,9 +37,17 @@
             "line-profiler": true,
             "line-profiler-type": "deterministic"
         },
+        "MONGO": {
+            "uri": "mongodb://localhost:27017/atx-data",
+            "db": "atx-data",
+            "max_pool_size": 100
+        },
         "POSTGRES": {
             "uri": "postgresql://localhost:5432",
             "db": "atx-data"
+        },
+        "REDIS": {
+            "url": "redis://localhost:6379"
         }
     },
     "qa": {
