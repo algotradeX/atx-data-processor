@@ -24,3 +24,7 @@ def ping_postgres():
         log.error(f"ping_postgres : error occurred : {err}")
         return False
     return True
+
+
+def ping_redis():
+    return server.get_redis().health()

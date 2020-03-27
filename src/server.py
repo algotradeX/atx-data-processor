@@ -4,7 +4,7 @@ from flask_apispec import FlaskApiSpec
 from flask_cors import CORS
 
 from src.common import Singleton, line_profiler, Logger, add_flask_profiler
-from src.db import Postgres
+from src.db import Postgres, RedisConnector
 
 log = Logger()
 
@@ -21,6 +21,8 @@ class Server(metaclass=Singleton):
         self.lineProfiler = line_profiler()
         log.info(f"starting {settings.APP_NAME} postgres connector {settings.POSTGRES}")
         self.postgres = Postgres(settings.POSTGRES)
+        log.info(f"starting {settings.APP_NAME} redis connector {settings.REDIS}")
+        self.redis = RedisConnector(settings.REDIS)
         log.info(f"started {settings.APP_NAME} server on {settings.API.SERVER}")
 
     def get_app(self):
@@ -34,3 +36,6 @@ class Server(metaclass=Singleton):
 
     def get_postgres(self):
         return self.postgres
+
+    def get_redis(self):
+        return self.redis

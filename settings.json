@@ -20,6 +20,9 @@
         "POSTGRES": {
             "uri": "",
             "db": ""
+        },
+        "REDIS": {
+            "url": ""
         }
     },
     "development": {
@@ -32,6 +35,9 @@
         "POSTGRES": {
             "uri": "postgresql://localhost:5432",
             "db": "atx-data"
+        },
+        "REDIS": {
+            "url": "redis://localhost:6379"
         }
     },
     "qa": {
