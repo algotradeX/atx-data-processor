@@ -32,3 +32,9 @@ def parse_request_using_schema(request, schema):
     data = schema.dump(request_body)
     log.info(f"{func_name} : {data}")
     return data
+
+
+def date_to_string_in_schema(output):
+    if "date" in output:
+        output["timestamp"] = datetime.strptime(output["date"], "%d-%b-%Y")
+    return output

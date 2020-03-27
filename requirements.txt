@@ -8,6 +8,7 @@ black==19.10b0
 certifi==2019.11.28
 cfgv==3.1.0
 Click==7.0
+coverage==5.0.4
 distlib==0.3.0
 dynaconf==2.2.3
 entrypoints==0.3
