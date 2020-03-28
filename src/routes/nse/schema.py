@@ -27,6 +27,7 @@ class NsePriceVolumeDeliverableData(Schema):
     no_of_trades = fields.Int(required=True)
     deliverable_qty = fields.Int(required=True)
     percent_daily_qty_to_traded_qty = fields.Float(required=True)
+    is_valid_data = fields.Bool(missing=True)
 
     @post_dump
     def date_to_string(self, output, **kwargs):

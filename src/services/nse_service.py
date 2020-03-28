@@ -65,6 +65,16 @@ def parse_one_row_of_nse_data_csv(index, row):
         "no_of_trades": row["No. of Trades"],
         "deliverable_qty": row["Deliverable Qty"],
         "percent_daily_qty_to_traded_qty": row["% Dly Qt to Traded Qty"],
+        "is_valid_data": True,
     }
+
+    # manual fixes on csv data
+    if nse_data_dict["deliverable_qty"] == "-":
+        nse_data_dict["deliverable_qty"] = 0
+        nse_data_dict["is_valid_data"] = False
+    if nse_data_dict["percent_daily_qty_to_traded_qty"] == "-":
+        nse_data_dict["percent_daily_qty_to_traded_qty"] = 0
+        nse_data_dict["is_valid_data"] = False
+
     nse_data = nse_pvd_schema.dump(nse_data_dict)
     upsert_nse_data_from_nse_pvd_data(nse_data)

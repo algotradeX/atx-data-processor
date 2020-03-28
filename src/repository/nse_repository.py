@@ -26,7 +26,14 @@ def upsert_one(data):
     if not isinstance(data, NseDailyDataModel):
         raise RuntimeError("Model error")
 
-    nse_data = session.query(NseDailyDataModel).get(data.timestamp)
+    nse_data = (
+        session.query(NseDailyDataModel)
+        .filter(
+            NseDailyDataModel.timestamp == data.timestamp,
+            NseDailyDataModel.symbol == data.symbol,
+        )
+        .first()
+    )
     if nse_data is not None:
         update_params = {
             "timestamp": data.timestamp,
@@ -39,10 +46,18 @@ def upsert_one(data):
             "updated_time": datetime.utcnow(),
         }
         session.query(NseDailyDataModel).filter(
-            NseDailyDataModel.timestamp == data.timestamp
+            NseDailyDataModel.timestamp == data.timestamp,
+            NseDailyDataModel.symbol == data.symbol,
         ).update(update_params)
         session.commit()
-        updated_nse_data = session.query(NseDailyDataModel).get(data.timestamp)
+        updated_nse_data = (
+            session.query(NseDailyDataModel)
+            .filter(
+                NseDailyDataModel.timestamp == data.timestamp,
+                NseDailyDataModel.symbol == data.symbol,
+            )
+            .first()
+        )
         log.info(f"nse_repository : update_one : updated_nse_data = {updated_nse_data}")
         return generate_response(200, "update", True, repr(updated_nse_data))
     else:
