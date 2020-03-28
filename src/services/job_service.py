@@ -1,38 +1,35 @@
 import calendar
-import hashlib
-import uuid
 from datetime import datetime, timedelta
 
 from rq import Worker
 from rq.job import Job
 
-from src.common import Logger
 from src.app import server
-from src.util import get_initial_create_time_dict, get_update_time_dict
+from src.common import Logger
+from src.repository import job_repository
 from src.util.job import (
     update_job_array_with_meta,
     add_job_meta,
     is_batch_job_finished,
     batch_job_stats,
 )
+from src.util.sequence import fetch_unique_uuid_md5_id
 
 log = Logger()
 
 
 def create_batch_job(desc, job_array):
-    rand_unique_id = str(datetime.utcnow()) + str(uuid.uuid4())
-    seq_id = hashlib.md5(rand_unique_id.encode("utf-8")).hexdigest()
+    seq_id = fetch_unique_uuid_md5_id()
     log.info(f"create_batch_job : creating new batch job for {desc} with id {seq_id}")
 
     job_array_with_meta = update_job_array_with_meta(job_array)
-    insert_resp = server.get_mongo_db().AtxDataBatchJobs.insert_one(
+    insert_resp = job_repository.create_one(
         {
             "_id": seq_id,
             "description": desc,
             "finished": is_batch_job_finished(job_array_with_meta),
             "stats": batch_job_stats(job_array_with_meta),
             "jobs": job_array_with_meta,
-            **get_initial_create_time_dict(),
         }
     )
     if insert_resp.acknowledged:
@@ -76,10 +73,6 @@ def clean_queue(queue_name):
     queue = server.get_job_queue().get_queue_by_name(queue_name)
     queue.empty()
     return {"success": True}
-
-
-def fetch_batch_job(job_id):
-    return server.get_mongo_db().AtxDataBatchJobs.find_one({"_id": job_id})
 
 
 def get_all_queue_stats():
@@ -128,7 +121,7 @@ def kill_all_zombie_workers():
 
 
 def view_or_update_batch_job(batch_job_id):
-    batch_job = fetch_batch_job(batch_job_id)
+    batch_job = job_repository.find_one(batch_job_id)
     if batch_job is None:
         return {
             "success": False,
@@ -152,15 +145,12 @@ def view_or_update_batch_job(batch_job_id):
             kwargs={"job_id": batch_job_id},
         )
 
-    update_resp = server.get_mongo_db().AtxDataBatchJobs.update_one(
-        {"_id": batch_job_id},
+    update_resp = job_repository.update_one(
+        batch_job_id,
         {
-            "$set": {
-                "finished": job_finished,
-                "stats": batch_job_stats(job_array_with_meta),
-                "jobs": job_array_with_meta,
-                **get_update_time_dict(),
-            }
+            "finished": job_finished,
+            "stats": batch_job_stats(job_array_with_meta),
+            "jobs": job_array_with_meta,
         },
     )
 
@@ -168,7 +158,7 @@ def view_or_update_batch_job(batch_job_id):
         server.get_job_queue().enqueue_job(
             poll_batch_job, priority="low", args=(tuple([batch_job_id]))
         )
-        updated_batch_job = fetch_batch_job(batch_job_id)
+        updated_batch_job = job_repository.find_one(batch_job_id)
         return {"success": True, "body": updated_batch_job}
     else:
         log.error(
@@ -193,7 +183,7 @@ def post_batch_job(batch_job_id):
 
 
 def restart_batch_job(batch_job_id):
-    batch_job = fetch_batch_job(batch_job_id)
+    batch_job = job_repository.find_one(batch_job_id)
     redis_conn = server.get_redis().get_redis_conn()
     if batch_job is None:
         return {
@@ -207,9 +197,7 @@ def restart_batch_job(batch_job_id):
             log.info(f"For batch job {batch_job_id}, requeue job {job_meta['_id']}")
             job = Job.fetch(job_meta["_id"], redis_conn)
             job.requeue()
-    server.get_mongo_db().AtxDataBatchJobs.update_one(
-        {"_id": batch_job_id}, {"$set": {"finished": False, **get_update_time_dict()}}
-    )
+    job_repository.update_one(batch_job_id, {"finished": False})
     server.get_job_queue().enqueue_job(
         poll_batch_job, priority="low", args=(tuple([batch_job_id]))
     )
