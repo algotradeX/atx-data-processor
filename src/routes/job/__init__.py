@@ -1,6 +1,6 @@
 from src.common.logger import Logger
 from src.core.namespace import Namespace
-from src.routes.job.service import (
+from src.services.job_service import (
     view_or_update_batch_job,
     clear_all_failed_jobs,
     clean_queue,
