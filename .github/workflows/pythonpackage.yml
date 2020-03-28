@@ -31,11 +31,11 @@ jobs:
       run: |
         pip install pytest
         pytest
-    - name: Check coverage and upload report
-      steps:
-      - run: coverage run -m pytest
-        - uses: paambaati/codeclimate-action@v2.5.4
-          env:
-            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          with:
-            coverageCommand: yarn coverage
+    - name: Check coverage
+      run: coverage run -m pytest
+    - name: Upload coverage report
+      uses: paambaati/codeclimate-action@v2.5.4
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: coverage run -m pytest

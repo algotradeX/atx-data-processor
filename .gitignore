@@ -13,3 +13,4 @@ logfile
 
 # coverage
 .coverage
+htmlcov/
