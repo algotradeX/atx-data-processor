@@ -26,9 +26,18 @@ def parse_request_using_schema(request, schema):
     func_name = inspect.stack()[1][3]
     log.info(f"Request received : {func_name}")
     request_body = request.get_json()
-    validation_errors_dict = schema.validate(request_body)
-    if len(validation_errors_dict) > 0:
-        raise ValidationError(validation_errors_dict)
+    validate_schema(request_body, schema)
     data = schema.dump(request_body)
     log.info(f"{func_name} : {data}")
     return data
+
+
+def validate_and_dump_in_schema(obj, schema):
+    validate_schema(obj, schema)
+    return schema.dump(obj)
+
+
+def validate_schema(obj, schema):
+    validation_errors_dict = schema.validate(obj)
+    if len(validation_errors_dict) > 0:
+        raise ValidationError(validation_errors_dict)

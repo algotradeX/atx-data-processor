@@ -5,7 +5,7 @@ from sqlalchemy import exc
 
 from src.app import server
 from src.common import Logger
-from src.routes.job.service import create_batch_job
+from src.services.job_service import create_batch_job
 from src.util.job import add_job_meta
 
 log = Logger()
