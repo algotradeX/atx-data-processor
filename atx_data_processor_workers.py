@@ -19,7 +19,7 @@ def get_ip_and_host():
         host = socket.gethostname()
         ip = socket.gethostbyname(socket.gethostname())
     except Exception as e:
-        log.error(f"get_ip_and_host : Exception occurred {e}")
+        log.info(f"get_ip_and_host : Exception occurred {e}")
         ip = socket.gethostbyname("")
     return ip + "_" + host
 

@@ -38,10 +38,12 @@ def create_nse_data_from_csv(nse_csv_req):
         for index, row in df.iterrows():
             job_id = enqueue_job(parse_one_row_of_nse_data_csv, "medium", (index, row))
             job_array.append(job_id)
-        create_batch_job("parse_nse_csv", job_array)
+        batch_job_id = create_batch_job("parse_nse_csv", job_array)
+        return {"success": True, "batch_job_id": batch_job_id}
     else:
         for index, row in df.iterrows():
             parse_one_row_of_nse_data_csv(index, row)
+        return {"success": True}
 
 
 def parse_one_row_of_nse_data_csv(index, row):
