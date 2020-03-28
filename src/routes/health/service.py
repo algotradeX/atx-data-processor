@@ -5,7 +5,7 @@ from sqlalchemy import exc
 
 from src.app import server
 from src.common import Logger
-from src.services.job_service import create_batch_job
+from src.services.job_service import create_batch_job, enqueue_job
 from src.util.job import add_job_meta
 
 log = Logger()
@@ -54,14 +54,8 @@ def redis_ping_worker_queue(resp, sleep_delay=0):
 
 def ping_work_queue():
     # testing job queues
-    high_p_job = server.get_job_queue().enqueue_job(
-        redis_ping_worker_queue, priority="high", args=("PONG high", 1)
-    )
-    medium_p_job = server.get_job_queue().enqueue_job(
-        redis_ping_worker_queue, priority="medium", args=("PONG medium", 3)
-    )
-    low_p_job = server.get_job_queue().enqueue_job(
-        redis_ping_worker_queue, priority="low", args=("PONG low", 6)
-    )
+    high_p_job = enqueue_job(redis_ping_worker_queue, "high", ("PONG high", 1))
+    medium_p_job = enqueue_job(redis_ping_worker_queue, "medium", ("PONG medium", 3))
+    low_p_job = enqueue_job(redis_ping_worker_queue, "low", ("PONG low", 5))
     batch_job_id = create_batch_job("pinging", [high_p_job, medium_p_job, low_p_job])
     return batch_job_id

@@ -52,6 +52,7 @@ class NseDataDeleteRequest(Schema):
 
 class NseDataCsvParseRequest(Schema):
     localCsvUrl = fields.Str(required=True)
+    useWorkers = fields.Bool(missing=False)
 
     class Meta:
         strict = True

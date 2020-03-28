@@ -18,6 +18,11 @@ from src.util.sequence import fetch_unique_uuid_md5_id
 log = Logger()
 
 
+def enqueue_job(foo, priority, args):
+    job_id = server.get_job_queue().enqueue_job(foo, priority=priority, args=args)
+    return job_id
+
+
 def create_batch_job(desc, job_array):
     seq_id = fetch_unique_uuid_md5_id()
     log.info(f"create_batch_job : creating new batch job for {desc} with id {seq_id}")
