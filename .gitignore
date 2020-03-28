@@ -1,5 +1,7 @@
 # mac
 .idea/
+.DS_Store
+**/.DS_Store
 
 # test caches
 .pytest_cache/
@@ -8,3 +10,7 @@
 # logs
 logs/
 logfile
+
+# coverage
+.coverage
+htmlcov/
