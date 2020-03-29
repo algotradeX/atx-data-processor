@@ -2,12 +2,15 @@ import pandas as pd
 
 import src.repository.nse_repository as nse_repo
 from src.common import Logger
+from src.constants import CLOSE_COL_NAME
 from src.lib.technical_indicators import (
     moving_average,
     exponential_moving_average,
     momentum,
     bollinger_bands,
     rate_of_change,
+    relative_strength_index,
+    macd,
 )
 from src.routes.nse import NsePriceVolumeDeliverableData
 from src.routes.nse.transformer import get_nse_daily_data_model_from_nse_pvd_data
@@ -96,11 +99,13 @@ def process_nse_data(process_nse_pvd_data_request):
 
 def process_and_insert_dataframe_in_database(df, symbol):
     log.info(f"process_and_insert_dataframe_in_database : symbol={symbol}")
-    df = moving_average(df, "close", 20)
-    df = exponential_moving_average(df, "close", 20)
-    df = momentum(df, "close", 20)
-    df = bollinger_bands(df, "close", 20)
-    df = rate_of_change(df, "close", 20)
+    df = moving_average(df, CLOSE_COL_NAME, 20)
+    df = exponential_moving_average(df, CLOSE_COL_NAME, 20)
+    df = momentum(df, CLOSE_COL_NAME, 20)
+    df = bollinger_bands(df, CLOSE_COL_NAME, 20)
+    df = rate_of_change(df, CLOSE_COL_NAME, 20)
+    df = relative_strength_index(df, CLOSE_COL_NAME, 14)
+    df = macd(df, CLOSE_COL_NAME, 50, 50)
     df = df.fillna(0)
     nse_repo.save_processed_dataframe(df, symbol)
     return {"success": True, "status": 200}

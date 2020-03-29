@@ -67,10 +67,10 @@ def bollinger_bands(df, close_col_name, n):
     """
     MA = pd.Series(df[close_col_name].rolling(n, min_periods=n).mean())
     MSD = pd.Series(df[close_col_name].rolling(n, min_periods=n).std())
-    b1 = 4 * MSD / MA
+    b1 = MA + 2 * MSD
     B1 = pd.Series(b1, name="BollingerBandHigh_" + str(n))
     df = df.join(B1)
-    b2 = (df[close_col_name] - MA + 2 * MSD) / (4 * MSD)
+    b2 = MA - 2 * MSD
     B2 = pd.Series(b2, name="BollingerBandLow_" + str(n))
     df = df.join(B2)
     return df
@@ -88,6 +88,68 @@ def rate_of_change(df, close_col_name, n):
     N = df[close_col_name].shift(n - 1)
     ROC = pd.Series(M / N, name="ROC_" + str(n))
     df = df.join(ROC)
+    return df
+
+
+def relative_strength_index(df, close_col_name, n):
+    """Calculate Relative Strength Index(RSI) for given data.
+
+    :param df: pandas.DataFrame
+    :param close_col_name: String
+    :param n: Integer
+    :return: pandas.DataFrame
+    """
+    window_length = 14
+    delta = df[close_col_name].diff()
+    delta = delta[1:]
+
+    up, down = delta.copy(), delta.copy()
+    up[up < 0] = 0
+    down[down > 0] = 0
+
+    roll_up1 = up.ewm(span=window_length).mean()
+    roll_down1 = down.abs().ewm(span=window_length).mean()
+
+    RS1 = roll_up1 / roll_down1
+    RSI1 = 100.0 - (100.0 / (1.0 + RS1))
+
+    # Calculate the SMA
+    roll_up2 = up.rolling(window_length).mean()
+    roll_down2 = down.abs().rolling(window_length).mean()
+
+    # Calculate the RSI based on SMA
+    RS2 = roll_up2 / roll_down2
+    RSI2 = 100.0 - (100.0 / (1.0 + RS2))
+
+    RSI1_Series = pd.Series(RSI1, name="RSI1_" + str(n))
+    df = df.join(RSI1_Series)
+    RSI2_Series = pd.Series(RSI2, name="RSI2_" + str(n))
+    df = df.join(RSI2_Series)
+    return df
+
+
+def macd(df, close_col_name, n_fast, n_slow):
+    """Calculate MACD, MACD Signal and MACD difference
+
+    :param df: pandas.DataFrame
+    :param close_col_name: String
+    :param n_fast: Integer
+    :param n_slow: Integer
+    :return: pandas.DataFrame
+    """
+    EMAfast = pd.Series(df[close_col_name].ewm(span=n_fast, min_periods=n_slow).mean())
+    EMAslow = pd.Series(df[close_col_name].ewm(span=n_slow, min_periods=n_slow).mean())
+    MACD = pd.Series(EMAfast - EMAslow, name="MACD_" + str(n_fast) + "_" + str(n_slow))
+    MACDsign = pd.Series(
+        MACD.ewm(span=9, min_periods=9).mean(),
+        name="MACDsign_" + str(n_fast) + "_" + str(n_slow),
+    )
+    MACDdiff = pd.Series(
+        MACD - MACDsign, name="MACDdiff_" + str(n_fast) + "_" + str(n_slow)
+    )
+    df = df.join(MACD)
+    df = df.join(MACDsign)
+    df = df.join(MACDdiff)
     return df
 
 
@@ -229,30 +291,6 @@ def average_directional_movement_index(df, n, n_ADX):
     return df
 
 
-def macd(df, n_fast, n_slow):
-    """Calculate MACD, MACD Signal and MACD difference
-
-    :param df: pandas.DataFrame
-    :param n_fast:
-    :param n_slow:
-    :return: pandas.DataFrame
-    """
-    EMAfast = pd.Series(df["Close"].ewm(span=n_fast, min_periods=n_slow).mean())
-    EMAslow = pd.Series(df["Close"].ewm(span=n_slow, min_periods=n_slow).mean())
-    MACD = pd.Series(EMAfast - EMAslow, name="MACD_" + str(n_fast) + "_" + str(n_slow))
-    MACDsign = pd.Series(
-        MACD.ewm(span=9, min_periods=9).mean(),
-        name="MACDsign_" + str(n_fast) + "_" + str(n_slow),
-    )
-    MACDdiff = pd.Series(
-        MACD - MACDsign, name="MACDdiff_" + str(n_fast) + "_" + str(n_slow)
-    )
-    df = df.join(MACD)
-    df = df.join(MACDsign)
-    df = df.join(MACDdiff)
-    return df
-
-
 def mass_index(df):
     """Calculate the Mass Index for given data.
 
@@ -350,39 +388,6 @@ def kst_oscillator(df, r1, r2, r3, r4, n1, n2, n3, n4):
         + str(n4),
     )
     df = df.join(KST)
-    return df
-
-
-def relative_strength_index(df, n):
-    """Calculate Relative Strength Index(RSI) for given data.
-
-    :param df: pandas.DataFrame
-    :param n:
-    :return: pandas.DataFrame
-    """
-    i = 0
-    UpI = [0]
-    DoI = [0]
-    while i + 1 <= df.index[-1]:
-        UpMove = df.loc[i + 1, "High"] - df.loc[i, "High"]
-        DoMove = df.loc[i, "Low"] - df.loc[i + 1, "Low"]
-        if UpMove > DoMove and UpMove > 0:
-            UpD = UpMove
-        else:
-            UpD = 0
-        UpI.append(UpD)
-        if DoMove > UpMove and DoMove > 0:
-            DoD = DoMove
-        else:
-            DoD = 0
-        DoI.append(DoD)
-        i = i + 1
-    UpI = pd.Series(UpI)
-    DoI = pd.Series(DoI)
-    PosDI = pd.Series(UpI.ewm(span=n, min_periods=n).mean())
-    NegDI = pd.Series(DoI.ewm(span=n, min_periods=n).mean())
-    RSI = pd.Series(PosDI / (PosDI + NegDI), name="RSI_" + str(n))
-    df = df.join(RSI)
     return df
 
 
