@@ -7,11 +7,11 @@ Process data from atx-database
 
 
 ### Code Climate Status
-![codeclimate-maintainability-percentage](https://img.shields.io/codeclimate/maintainability-percentage/algotradeX/atx-data-processor?style=plastic)
-![codeclimate-loc](https://badgen.net/codeclimate/loc/algotradeX/atx-data-processor?style=plastic)
-![codeclimate-issue-count](https://img.shields.io/codeclimate/issues/algotradeX/atx-data-processor?style=plastic)
-![codeclimate-tech-debt](https://img.shields.io/codeclimate/tech-debt/algotradeX/atx-data-processor?style=plastic)
-![codeclimate-coverage](https://img.shields.io/codeclimate/coverage/algotradeX/atx-data-processor?style=plastic)
+![codeclimate-maintainability-percentage](https://badgen.net/codeclimate/maintainability-percentage/algotradeX/atx-data-processor)
+![codeclimate-loc](https://badgen.net/codeclimate/loc/algotradeX/atx-data-processor)
+![codeclimate-issue-count](https://badgen.net/codeclimate/issues/algotradeX/atx-data-processor)
+![codeclimate-tech-debt](https://badgen.net/codeclimate/tech-debt/algotradeX/atx-data-processor)
+![codeclimate-coverage](https://badgen.net/codeclimate/coverage/algotradeX/atx-data-processor)
 
 
 ## Setup Instructions
