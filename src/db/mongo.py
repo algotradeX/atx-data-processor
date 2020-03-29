@@ -22,8 +22,8 @@ class MongoConnector(metaclass=Singleton):
     def get_db(self):
         return self.db
 
-    def get_collection(self, collection_name):
-        return self.db[collection_name]
+    def get_collection(self, table_name):
+        return self.db[table_name]
 
     def health(self):
         try:

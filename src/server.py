@@ -23,6 +23,16 @@ class Server(metaclass=Singleton):
         self.mongo = MongoConnector(settings.MONGO)
         log.info(f"starting {settings.APP_NAME} postgres connector {settings.POSTGRES}")
         self.postgres = Postgres(settings.POSTGRES)
+        """
+            When worker fork's the parent process, the db engine & connection pool is included in that.
+            But, the db connections should not be shared across processes, so we tell the engine
+            to dispose of all existing connections, which will cause new ones to be opened in the child
+            processes as needed.
+            More info:
+            https://docs.sqlalchemy.org/en/latest/core/pooling.html#using-connection-pools-with-multiprocessing
+        """
+        with app.app_context():
+            self.postgres.get_engine().dispose()
         log.info(f"starting {settings.APP_NAME} redis connector {settings.REDIS}")
         self.redis = RedisConnector(settings.REDIS)
         log.info(

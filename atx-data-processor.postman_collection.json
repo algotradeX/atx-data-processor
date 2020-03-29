@@ -239,7 +239,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"localCsvUrl\": \"~/Downloads/28-02-2020-TO-13-03-2020HDFCALLN.csv\"\n}",
+					"raw": "{\n\t\"localCsvUrl\": \"~/Downloads/29-03-2018-TO-27-03-2020HDFCALL.csv\",\n\t\"useWorkers\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -259,17 +259,320 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "post nse/process",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"symbol\": \"HDFC\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nse/process",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"nse",
+						"process"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/all/failed/remove",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/all/failed/remove",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"all",
+						"failed",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/all/failed/requeue",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/all/failed/requeue",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"all",
+						"failed",
+						"requeue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/queue/all/stats",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/queue/all/stats",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"queue",
+						"all",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/queue/<queue_name>/clean",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/queue/atx_dp_passive_priority_job_queue/clean",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"queue",
+						"atx_dp_passive_priority_job_queue",
+						"clean"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/batch/view/id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/batch/view/15ed4bd05310cccff5ad3516b6a5494d",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"batch",
+						"view",
+						"15ed4bd05310cccff5ad3516b6a5494d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/batch/restart/id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/batch/restart/15ed4bd05310cccff5ad3516b6a5494d",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"batch",
+						"restart",
+						"15ed4bd05310cccff5ad3516b6a5494d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/worker/all",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/worker/all",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"worker",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job/worker/killZombies",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/job/batch/restart/15ed4bd05310cccff5ad3516b6a5494d",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"job",
+						"batch",
+						"restart",
+						"15ed4bd05310cccff5ad3516b6a5494d"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "97ac4b7f-2676-4667-bb20-f4171a4b0c0e",
+			"id": "b5a8fa65-5a22-44b0-ac95-8b2413146ec3",
 			"key": "atx-data-processor-api",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "813b306d-19ae-4aa4-9999-0841902a49b0",
+			"id": "be297e39-4431-41d2-bf60-32633fa82fed",
 			"key": "atx-data-processor-url",
 			"value": "",
 			"type": "string"

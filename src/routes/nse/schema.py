@@ -27,6 +27,7 @@ class NsePriceVolumeDeliverableData(Schema):
     no_of_trades = fields.Int(required=True)
     deliverable_qty = fields.Int(required=True)
     percent_daily_qty_to_traded_qty = fields.Float(required=True)
+    is_valid_data = fields.Bool(missing=True)
 
     @post_dump
     def date_to_string(self, output, **kwargs):
@@ -52,6 +53,14 @@ class NseDataDeleteRequest(Schema):
 
 class NseDataCsvParseRequest(Schema):
     localCsvUrl = fields.Str(required=True)
+    useWorkers = fields.Bool(missing=False)
+
+    class Meta:
+        strict = True
+
+
+class ProcessNseDataRequest(Schema):
+    symbol = fields.Str(required=True)
 
     class Meta:
         strict = True

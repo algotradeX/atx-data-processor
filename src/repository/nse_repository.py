@@ -1,3 +1,5 @@
+import pandas as pd
+
 from datetime import datetime
 
 from src.app import server
@@ -6,6 +8,7 @@ from src.model.nse_model import NseDailyDataModel
 from src.repository.repository_response import generate_response
 
 postgres = server.get_postgres()
+engine = postgres.get_engine()
 session = postgres.get_session()
 log = Logger()
 
@@ -26,7 +29,14 @@ def upsert_one(data):
     if not isinstance(data, NseDailyDataModel):
         raise RuntimeError("Model error")
 
-    nse_data = session.query(NseDailyDataModel).get(data.timestamp)
+    nse_data = (
+        session.query(NseDailyDataModel)
+        .filter(
+            NseDailyDataModel.timestamp == data.timestamp,
+            NseDailyDataModel.symbol == data.symbol,
+        )
+        .first()
+    )
     if nse_data is not None:
         update_params = {
             "timestamp": data.timestamp,
@@ -39,10 +49,18 @@ def upsert_one(data):
             "updated_time": datetime.utcnow(),
         }
         session.query(NseDailyDataModel).filter(
-            NseDailyDataModel.timestamp == data.timestamp
+            NseDailyDataModel.timestamp == data.timestamp,
+            NseDailyDataModel.symbol == data.symbol,
         ).update(update_params)
         session.commit()
-        updated_nse_data = session.query(NseDailyDataModel).get(data.timestamp)
+        updated_nse_data = (
+            session.query(NseDailyDataModel)
+            .filter(
+                NseDailyDataModel.timestamp == data.timestamp,
+                NseDailyDataModel.symbol == data.symbol,
+            )
+            .first()
+        )
         log.info(f"nse_repository : update_one : updated_nse_data = {updated_nse_data}")
         return generate_response(200, "update", True, repr(updated_nse_data))
     else:
@@ -60,3 +78,17 @@ def delete_one(data_id):
         return generate_response(200, "delete", True, repr(nse_data_to_be_deleted))
     else:
         return generate_response(200, "delete", False, None)
+
+
+def find_dataframe_by_symbol(symbol):
+    return pd.read_sql_query(
+        "select * from nse_data_daily where nse_data_daily.symbol = %(symbol)s",
+        params={"symbol": symbol},
+        con=engine,
+    )
+
+
+def save_processed_dataframe(df, symbol):
+    table_name = "nse_data_daily_processed_" + str(symbol)
+
+    df.to_sql(table_name, con=engine, if_exists="replace", chunksize=1000)
