@@ -90,11 +90,8 @@ def process_nse_data(process_nse_pvd_data_request):
 
 def process_and_insert_dataframe_in_database(df):
     log.info(f"process_and_insert_dataframe_in_database")
-    # TODO: schema
-    # TODO: add data in schema
     df = moving_average(df, "close", 20)
     df = exponential_moving_average(df, "close", 20)
     df = df.fillna(0)
-    print(df)
-    # TODO: save to database
-    return 1
+    nse_repo.save_processed_dataframe(df)
+    return {"success": True, "status": 200}

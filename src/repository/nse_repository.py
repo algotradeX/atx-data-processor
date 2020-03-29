@@ -88,5 +88,7 @@ def find_dataframe_by_symbol(symbol):
     )
 
 
-def write_dataframe_in_sql(df):
-    df.to_sql("book_details", con=engine, if_exists="append", chunksize=1000)
+def save_processed_dataframe(df):
+    df.to_sql(
+        "nse_data_daily_processed", con=engine, if_exists="append", chunksize=1000
+    )
