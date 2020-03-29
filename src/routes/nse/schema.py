@@ -57,3 +57,10 @@ class NseDataCsvParseRequest(Schema):
 
     class Meta:
         strict = True
+
+
+class ProcessNseDataRequest(Schema):
+    symbol = fields.Str(required=True)
+
+    class Meta:
+        strict = True

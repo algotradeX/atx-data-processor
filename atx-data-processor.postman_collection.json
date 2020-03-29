@@ -239,7 +239,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"localCsvUrl\": \"~/Downloads/28-02-2020-TO-13-03-2020HDFCALLN.csv\",\n\t\"useWorkers\": true\n}",
+					"raw": "{\n\t\"localCsvUrl\": \"~/Downloads/29-03-2018-TO-27-03-2020HDFCALL.csv\",\n\t\"useWorkers\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -255,6 +255,46 @@
 						"{{atx-data-processor-api}}",
 						"nse",
 						"parse_csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post nse/process",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"symbol\": \"HDFC\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/nse/process",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"nse",
+						"process"
 					]
 				}
 			},
@@ -526,13 +566,13 @@
 	],
 	"variable": [
 		{
-			"id": "a2ccee22-174b-4dac-9cb9-e2c9c28a5d76",
+			"id": "b5a8fa65-5a22-44b0-ac95-8b2413146ec3",
 			"key": "atx-data-processor-api",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d8562c3a-528c-4549-b9e2-4c9218b2dbb8",
+			"id": "be297e39-4431-41d2-bf60-32633fa82fed",
 			"key": "atx-data-processor-url",
 			"value": "",
 			"type": "string"

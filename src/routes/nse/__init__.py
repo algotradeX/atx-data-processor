@@ -6,12 +6,14 @@ from src.routes.nse.schema import (
     NsePriceVolumeDeliverableData,
     NseDataCsvParseRequest,
     NseDataDeleteRequest,
+    ProcessNseDataRequest,
 )
 from src.services.nse_service import (
     create_nse_data_from_nse_pvd_data,
     create_nse_data_from_csv,
     delete_nse_data,
     upsert_nse_data_from_nse_pvd_data,
+    process_nse_data,
 )
 from src.util import parse_request_using_schema
 
@@ -46,3 +48,12 @@ def set_nse_pvd_data_csv():
     nse_data_csv_req = parse_request_using_schema(request, NseDataCsvParseRequest())
     service_resp = create_nse_data_from_csv(nse_data_csv_req)
     return make_response(jsonify(service_resp), 200)
+
+
+@api.route("/process", methods=["POST"])
+def process_nse_pvd_data():
+    process_nse_pvd_data_request = parse_request_using_schema(
+        request, ProcessNseDataRequest()
+    )
+    service_resp = process_nse_data(process_nse_pvd_data_request)
+    return make_response(jsonify(service_resp), service_resp["status"])

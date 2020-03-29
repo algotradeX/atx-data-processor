@@ -1,3 +1,5 @@
+import pandas as pd
+
 from datetime import datetime
 
 from src.app import server
@@ -6,6 +8,7 @@ from src.model.nse_model import NseDailyDataModel
 from src.repository.repository_response import generate_response
 
 postgres = server.get_postgres()
+engine = postgres.get_engine()
 session = postgres.get_session()
 log = Logger()
 
@@ -75,3 +78,15 @@ def delete_one(data_id):
         return generate_response(200, "delete", True, repr(nse_data_to_be_deleted))
     else:
         return generate_response(200, "delete", False, None)
+
+
+def find_dataframe_by_symbol(symbol):
+    return pd.read_sql_query(
+        "select * from nse_data_daily where nse_data_daily.symbol = %(symbol)s",
+        params={"symbol": symbol},
+        con=engine,
+    )
+
+
+def write_dataframe_in_sql(df):
+    df.to_sql("book_details", con=engine, if_exists="append", chunksize=1000)

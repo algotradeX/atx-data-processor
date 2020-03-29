@@ -2,6 +2,7 @@ import pandas as pd
 
 import src.repository.nse_repository as nse_repo
 from src.common import Logger
+from src.lib.technical_indicators import moving_average, exponential_moving_average
 from src.routes.nse import NsePriceVolumeDeliverableData
 from src.routes.nse.transformer import get_nse_daily_data_model_from_nse_pvd_data
 from src.services.job_service import enqueue_job, create_batch_job
@@ -77,4 +78,23 @@ def parse_one_row_of_nse_data_csv(index, row):
         nse_data_dict["is_valid_data"] = False
 
     nse_data = nse_pvd_schema.dump(nse_data_dict)
-    upsert_nse_data_from_nse_pvd_data(nse_data)
+    return upsert_nse_data_from_nse_pvd_data(nse_data)
+
+
+def process_nse_data(process_nse_pvd_data_request):
+    symbol = process_nse_pvd_data_request["symbol"]
+    df = nse_repo.find_dataframe_by_symbol(symbol)
+    enqueue_job(process_and_insert_dataframe_in_database, "high", tuple([df]))
+    return {"success": True, "status": 200}
+
+
+def process_and_insert_dataframe_in_database(df):
+    log.info(f"process_and_insert_dataframe_in_database")
+    # TODO: schema
+    # TODO: add data in schema
+    df = moving_average(df, "close", 20)
+    df = exponential_moving_average(df, "close", 20)
+    df = df.fillna(0)
+    print(df)
+    # TODO: save to database
+    return 1
