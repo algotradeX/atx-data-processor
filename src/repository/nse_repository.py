@@ -88,7 +88,7 @@ def find_dataframe_by_symbol(symbol):
     )
 
 
-def save_processed_dataframe(df):
-    df.to_sql(
-        "nse_data_daily_processed", con=engine, if_exists="append", chunksize=1000
-    )
+def save_processed_dataframe(df, symbol):
+    table_name = "nse_data_daily_processed_" + str(symbol)
+
+    df.to_sql(table_name, con=engine, if_exists="replace", chunksize=1000)

@@ -2,7 +2,13 @@ import pandas as pd
 
 import src.repository.nse_repository as nse_repo
 from src.common import Logger
-from src.lib.technical_indicators import moving_average, exponential_moving_average
+from src.lib.technical_indicators import (
+    moving_average,
+    exponential_moving_average,
+    momentum,
+    bollinger_bands,
+    rate_of_change,
+)
 from src.routes.nse import NsePriceVolumeDeliverableData
 from src.routes.nse.transformer import get_nse_daily_data_model_from_nse_pvd_data
 from src.services.job_service import enqueue_job, create_batch_job
@@ -84,14 +90,17 @@ def parse_one_row_of_nse_data_csv(index, row):
 def process_nse_data(process_nse_pvd_data_request):
     symbol = process_nse_pvd_data_request["symbol"]
     df = nse_repo.find_dataframe_by_symbol(symbol)
-    enqueue_job(process_and_insert_dataframe_in_database, "high", tuple([df]))
+    enqueue_job(process_and_insert_dataframe_in_database, "high", (df, symbol))
     return {"success": True, "status": 200}
 
 
-def process_and_insert_dataframe_in_database(df):
-    log.info(f"process_and_insert_dataframe_in_database")
+def process_and_insert_dataframe_in_database(df, symbol):
+    log.info(f"process_and_insert_dataframe_in_database : symbol={symbol}")
     df = moving_average(df, "close", 20)
     df = exponential_moving_average(df, "close", 20)
+    df = momentum(df, "close", 20)
+    df = bollinger_bands(df, "close", 20)
+    df = rate_of_change(df, "close", 20)
     df = df.fillna(0)
-    nse_repo.save_processed_dataframe(df)
+    nse_repo.save_processed_dataframe(df, symbol)
     return {"success": True, "status": 200}
