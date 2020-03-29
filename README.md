@@ -2,7 +2,7 @@
 Process data from atx-database
 
 ![Python package](https://github.com/algotradeX/atx-data-processor/workflows/Python%20package/badge.svg?label=Build%20Status)
-![codeclimate-maintainability](https://img.shields.io/codeclimate/maintainability/algotradeX/atx-data-processor?label=Code%20Climate%20Maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2978c107db3dc8131a2b/maintainability)](https://codeclimate.com/github/algotradeX/atx-data-processor/maintainability)
 
 
 ### Code Climate Status
