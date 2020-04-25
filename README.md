@@ -2,14 +2,16 @@
 Process data from atx-database
 
 ![Python package](https://github.com/algotradeX/atx-data-processor/workflows/Python%20package/badge.svg?label=Build%20Status)
-![codeclimate-maintainability](https://img.shields.io/codeclimate/maintainability/algotradeX/atx-data-processor?label=Code%20Climate%20Maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2978c107db3dc8131a2b/maintainability)](https://codeclimate.com/github/algotradeX/atx-data-processor/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2978c107db3dc8131a2b/test_coverage)](https://codeclimate.com/github/algotradeX/atx-data-processor/test_coverage)
 
 
 ### Code Climate Status
-![codeclimate-maintainability-percentage](https://img.shields.io/codeclimate/maintainability-percentage/algotradeX/atx-data-processor?style=plastic)
-![codeclimate-issue-count](https://img.shields.io/codeclimate/issues/algotradeX/atx-data-processor?style=plastic)
-![codeclimate-tech-debt](https://img.shields.io/codeclimate/tech-debt/algotradeX/atx-data-processor?style=plastic)
-![codeclimate-coverage](https://img.shields.io/codeclimate/coverage/algotradeX/atx-data-processor?style=plastic)
+![codeclimate-maintainability-percentage](https://badgen.net/codeclimate/maintainability-percentage/algotradeX/atx-data-processor)
+![codeclimate-loc](https://badgen.net/codeclimate/loc/algotradeX/atx-data-processor)
+![codeclimate-issue-count](https://badgen.net/codeclimate/issues/algotradeX/atx-data-processor)
+![codeclimate-tech-debt](https://badgen.net/codeclimate/tech-debt/algotradeX/atx-data-processor)
+![codeclimate-coverage](https://badgen.net/codeclimate/coverage/algotradeX/atx-data-processor)
 
 
 ## Setup Instructions
