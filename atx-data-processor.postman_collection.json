@@ -279,7 +279,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"symbol\": \"HDFC\"\n}",
+					"raw": "{\n\t\"symbol\": \"HDFC_EQ_1440\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -562,17 +562,60 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "post dashboard/fetchGraphData",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9c74e120-8216-44d4-80d3-b9ef99a6a87a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"symbol\": \"ALCHEM\",\n\t\"series\": \"BE\",\n\t\"interval\": \"1440\",\n\t\"date\": \"23-Jan-2020 00:00:00\",\n\t\"page\": 1,\n\t\"ipp\": 20,\n\t\"indicators\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{atx-data-processor-url}}/{{atx-data-processor-api}}/dashboard/fetchGraphData",
+					"host": [
+						"{{atx-data-processor-url}}"
+					],
+					"path": [
+						"{{atx-data-processor-api}}",
+						"dashboard",
+						"fetchGraphData"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "b5a8fa65-5a22-44b0-ac95-8b2413146ec3",
+			"id": "2e7b8e58-4ae1-4159-9e57-37a7ae2e91b1",
 			"key": "atx-data-processor-api",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "be297e39-4431-41d2-bf60-32633fa82fed",
+			"id": "f8d714f5-dce0-4f8a-803f-3bcd4b602c92",
 			"key": "atx-data-processor-url",
 			"value": "",
 			"type": "string"

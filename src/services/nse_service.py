@@ -109,3 +109,7 @@ def process_and_insert_dataframe_in_database(df, symbol):
     df = df.fillna(0)
     nse_repo.save_processed_dataframe(df, symbol)
     return {"success": True, "status": 200}
+
+
+def fetch_dataframe_between_dates(symbol, t1, t2):
+    return nse_repo.find_within_dates(symbol, t1, t2)

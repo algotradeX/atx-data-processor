@@ -25,6 +25,18 @@ def create_one(data):
     return generate_response(200, "create", True, repr(data))
 
 
+def find_within_dates(symbol, t1, t2):
+    nse_data = (
+        session.query(NseDailyDataModel)
+        .filter(
+            NseDailyDataModel.symbol == symbol,
+            NseDailyDataModel.timestamp.between(t1, t2),
+        )
+        .all()
+    )
+    return nse_data
+
+
 def upsert_one(data):
     if not isinstance(data, NseDailyDataModel):
         raise RuntimeError("Model error")
